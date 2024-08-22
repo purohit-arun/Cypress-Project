@@ -34,6 +34,7 @@ describe('My First Test', () => {
             .then(
                 logotext => cy.log(logotext.text())
             )
+            cy.get(':nth-child(1) > .product-action > button').click()
     })
 
 })
