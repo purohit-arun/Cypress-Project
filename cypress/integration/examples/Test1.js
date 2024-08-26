@@ -32,6 +32,8 @@ describe('My First Test', () => {
                 }
             })
 
+        cy.get('.brand').should('have.text', "GREENKART")
+
         //then is used to handle the promise returned by cy.get('.brand')
         cy.get('.brand')
             .then(
