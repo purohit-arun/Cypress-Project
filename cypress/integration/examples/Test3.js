@@ -43,5 +43,8 @@ describe('Automation of checkbox and other elements', () => {
         cy.get('#show-textbox').click()
         cy.get('#displayed-text').should('be.visible')
 
+
+        cy.get('[value="radio2').check()
+
     });
 })
