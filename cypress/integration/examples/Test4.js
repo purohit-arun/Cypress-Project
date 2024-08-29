@@ -16,5 +16,14 @@ describe('Automation of checkbox and other elements', () => {
         })
     })
 
+    it.only('mouse hover test', () => {
+        cy.visit('https://rahulshettyacademy.com/AutomationPractice/')
+        cy.get('.mouse-hover-content').invoke('show')
+        //if want to click without hover
+        //cy.contains('Top').click({ force: true })
+        cy.contains('Top').click()
+        cy.url().should('include', 'top')
+    })
+
 
 })
