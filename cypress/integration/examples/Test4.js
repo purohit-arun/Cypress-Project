@@ -16,13 +16,28 @@ describe('Automation of checkbox and other elements', () => {
         })
     })
 
-    it.only('mouse hover test', () => {
+    it('mouse hover test', () => {
         cy.visit('https://rahulshettyacademy.com/AutomationPractice/')
         cy.get('.mouse-hover-content').invoke('show')
         //if want to click without hover
         //cy.contains('Top').click({ force: true })
         cy.contains('Top').click()
         cy.url().should('include', 'top')
+    })
+
+    it.only('Handling child window and child tabs', () => {
+        cy.visit('https://rahulshettyacademy.com/AutomationPractice/')
+
+
+        cy.get('#opentab').then((ele) => {
+            const url = ele.prop('href')
+            cy.visit(url)
+            cy.origin(url, () => {
+                cy.get('div.sub-menu-bar a[href*="about"]').click
+            })
+        })
+
+
     })
 
 
