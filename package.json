@@ -9,7 +9,7 @@
   "author": "Arun Purohit",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^13.13.3",
+    "cypress": "^13.14.1",
     "cypress-iframe": "^1.0.1"
   }
 }
