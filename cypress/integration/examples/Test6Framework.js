@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+import HomePage from "../pageObjects/HomePage";
 describe('Framework Test 1', () => {
     let data
     before(() => {
@@ -8,17 +9,21 @@ describe('Framework Test 1', () => {
     })
 
     it('Singup', () => {
+        const homePage = new HomePage()
         cy.visit("https://rahulshettyacademy.com/angularpractice/")
 
-        cy.get('div[class="form-group"] input[name="name"]').type(data.name)
-        cy.get('select').select(data.gender)
+        homePage.getNameEditBox().type(data.name)
+        homePage.getGender().select(data.gender)
 
-        cy.get(':nth-child(4) > .ng-untouched').should('have.value', data.name)
-        cy.get('div[class="form-group"] input[name="name"]').should('have.attr', 'minlength', '2')
+        homePage.getTwoWayDataBinding().should('have.value', data.name)
+        homePage.getNameEditBox().should('have.attr', 'minlength', '2')
 
-        cy.get('#inlineRadio3').should('be.disabled')
-        cy.get('.nav-link[href="/angularpractice/shop"]').click()
+        homePage.getEnterepruerButton().should('be.disabled')
 
-        cy.selectProduct('BlackBerry')
+        homePage.getShopTab().click().debug()
+        data.productName.forEach(p => {
+            cy.selectProduct(p)
+        })
+
     })
 }) 
