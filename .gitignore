@@ -28,3 +28,13 @@ node_modules
 cypress/videos
 cypress/screenshots
 js/*.js
+
+
+#editor files
+.vscode
+
+# misc
+.DS_Store
+.env
+.env.local
+package-lock.json
