@@ -15,6 +15,6 @@ module.exports = defineConfig({
       require('cypress-mochawesome-reporter/plugin')(on);
     },
     specPattern: 'cypress/integration/examples/*.js',
-    projectId: "prh8fy",
+    projectId: "vg8qfi", //prh8fy
   },
 });
