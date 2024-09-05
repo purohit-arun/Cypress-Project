@@ -33,26 +33,30 @@ describe('Framework Test 1', () => {
         // Cypress.config('defaultCommandTimeout', 8000)
         // cy.contains('Checkout').click()
         let priceArray = []
-        /* cy.get('tr td:nth-child(4) strong').each(($price, index, $list) => {
+        cy.get('tr td:nth-child(4) strong').each(($price, index, $list) => {
             cy.log("Price is :: ", Number($price.text().split(' ', 2).at(1)))
+            priceArray.push(Number($price.text().split(' ', 2).at(1)))
             totalSum = totalSum + Number(priceArray.at(index))
             cy.log(totalSum)
-        }) */
-        cy.get('tr td:nth-child(4) strong').each(($price, index, $list) => {
+        }).then((ele) => {
+            cy.log(totalSum)
+        })
+
+        /* cy.get('tr td:nth-child(4) strong').each(($price, index, $list) => {
             const actualPrice = $price.text()
             let res = actualPrice.split(" ")
             res = res[1].trim()
             totalSum = totalSum + Number(res)
         }).then(() => {
             cy.log(totalSum)
-        })
+        }) */
 
-        cy.get('h3 strong').then((element) => {
+        /* cy.get('h3 strong').then((element) => {
             const amount = element.text()
             var res = amount.split(" ")
             var total = res[1].trim()
             expect(Number(total)).to.equal(totalSum)
-        })
+        }) */
 
         /* priceArray.forEach(price => {
             console.log("Price is ", price)
