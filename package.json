@@ -9,8 +9,10 @@
   "author": "Arun Purohit",
   "license": "ISC",
   "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^20.1.2",
     "cypress": "^13.14.1",
     "cypress-iframe": "^1.0.1",
-    "cypress-mochawesome-reporter": "^3.8.2"
+    "cypress-mochawesome-reporter": "^3.8.2",
+    "@cypress/browserify-preprocessor": "latest"
   }
 }
