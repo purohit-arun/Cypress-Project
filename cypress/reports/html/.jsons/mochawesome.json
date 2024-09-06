@@ -1,0 +1,132 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 0,
+    "pending": 0,
+    "failures": 2,
+    "start": "2024-09-06T11:42:23.598Z",
+    "end": "2024-09-06T11:42:25.296Z",
+    "duration": 1698,
+    "testsRegistered": 2,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "3e8b5750-6c30-40c5-b6a9-cce7b6378f05",
+      "title": "",
+      "fullFile": "cypress\\integration\\examples\\bdd\\ecommerce.feature",
+      "file": "cypress\\integration\\examples\\bdd\\ecommerce.feature",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "0b0299d6-6504-4887-9dce-c7328d36b031",
+          "title": "End to end Ecommerce validation",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Ecommerce products delivery",
+              "fullTitle": "End to end Ecommerce validation Ecommerce products delivery",
+              "timedOut": null,
+              "duration": 506,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      \"\\\\ecommerce.feature\\\\End to end Ecommerce validation -- Ecommerce products delivery (failed).png\"\n    ],\n    [\n      \"\\\\ecommerce.feature\\\\End to end Ecommerce validation -- Ecommerce products delivery (failed) (attempt 2).png\"\n    ]\n  ]\n}",
+              "code": "var _a, _b, _c, _d, _e;\n/**\n * This must always be true, otherwise something is off.\n */\n(0, assertions_1.assert)(context.includedPickles[0].id === pickle.id, \"Included pickle stack is unsynchronized\");\nconst { remainingSteps, testCaseStartedId } = retrieveInternalSpecProperties();\ntaskTestCaseStarted(context, {\n    id: testCaseStartedId,\n    testCaseId,\n    attempt: attempt++,\n    timestamp: (0, messages_1.createTimestamp)(),\n});\nwindow.testState = {\n    gherkinDocument,\n    pickles,\n    pickle,\n};\nconst onAfterStep = (options) => {\n    var _a, _b, _c;\n    const { testStepId, start, result } = options;\n    const end = (0, messages_1.createTimestamp)();\n    if (result === \"pending\" || result === \"skipped\") {\n        if (result === \"pending\") {\n            taskTestStepFinished(context, {\n                testStepId,\n                testCaseStartedId,\n                testStepResult: {\n                    status: messages.TestStepResultStatus.PENDING,\n                    duration: (0, messages_1.duration)(start, end),\n                },\n                timestamp: end,\n            });\n        }\n        else {\n            taskTestStepFinished(context, {\n                testStepId,\n                testCaseStartedId,\n                testStepResult: {\n                    status: messages.TestStepResultStatus.SKIPPED,\n                    duration: (0, messages_1.duration)(start, end),\n                },\n                timestamp: end,\n            });\n        }\n        remainingSteps.shift();\n        for (const skippedStep of remainingSteps) {\n            const hookIdOrPickleStepId = (0, assertions_1.assertAndReturn)((_b = (_a = skippedStep.hook) === null || _a === void 0 ? void 0 : _a.id) !== null && _b !== void 0 ? _b : (_c = skippedStep.pickleStep) === null || _c === void 0 ? void 0 : _c.id, \"Expected a step to either be a hook or a pickleStep\");\n            const testStepId = getTestStepId({\n                context,\n                pickleId: pickle.id,\n                hookIdOrPickleStepId,\n            });\n            taskTestStepStarted(context, {\n                testStepId,\n                testCaseStartedId,\n                timestamp: (0, messages_1.createTimestamp)(),\n            });\n            taskTestStepFinished(context, {\n                testStepId,\n                testCaseStartedId,\n                testStepResult: {\n                    status: messages.TestStepResultStatus.SKIPPED,\n                    duration: {\n                        seconds: 0,\n                        nanos: 0,\n                    },\n                },\n                timestamp: (0, messages_1.createTimestamp)(),\n            });\n        }\n        for (let i = 0, count = remainingSteps.length; i < count; i++) {\n            remainingSteps.pop();\n        }\n        cy.then(() => this.skip());\n    }\n    else {\n        taskTestStepFinished(context, {\n            testStepId,\n            testCaseStartedId,\n            testStepResult: {\n                status: messages.TestStepResultStatus.PASSED,\n                duration: (0, messages_1.duration)(start, end),\n            },\n            timestamp: end,\n        });\n        remainingSteps.shift();\n    }\n};\nfor (const step of steps) {\n    if (step.hook) {\n        const hook = step.hook;\n        const testStepId = getTestStepId({\n            context,\n            pickleId: pickle.id,\n            hookIdOrPickleStepId: hook.id,\n        });\n        cy.then(() => {\n            delete window.testState.pickleStep;\n            const start = (0, messages_1.createTimestamp)();\n            internalProperties.currentStepStartedAt = start;\n            taskTestStepStarted(context, {\n                testStepId,\n                testCaseStartedId,\n                timestamp: start,\n            });\n            return cy.wrap(start, { log: false });\n        })\n            .then((start) => {\n            const options = {\n                pickle,\n                gherkinDocument,\n                testCaseStartedId,\n            };\n            return (0, cypress_1.runStepWithLogGroup)({\n                fn: () => registry.runCaseHook(this, hook, options),\n                keyword: hook.keyword,\n                text: createStepDescription(hook),\n            }).then((result) => {\n                return { start, result };\n            });\n        })\n            .then(({ start, result }) => onAfterStep({ start, result, testStepId }));\n    }\n    else if (step.pickleStep) {\n        const pickleStep = step.pickleStep;\n        const testStepId = getTestStepId({\n            context,\n            pickleId: pickle.id,\n            hookIdOrPickleStepId: pickleStep.id,\n        });\n        const text = (0, assertions_1.assertAndReturn)(pickleStep.text, \"Expected pickle step to have a text\");\n        const scenarioStep = (0, assertions_1.assertAndReturn)(context.astIdsMap.get((0, assertions_1.assertAndReturn)((_a = pickleStep.astNodeIds) === null || _a === void 0 ? void 0 : _a[0], \"Expected to find at least one astNodeId\")), `Expected to find scenario step associated with id = ${(_b = pickleStep.astNodeIds) === null || _b === void 0 ? void 0 : _b[0]}`);\n        const argument = ((_c = pickleStep.argument) === null || _c === void 0 ? void 0 : _c.dataTable)\n            ? new data_table_1.default(pickleStep.argument.dataTable)\n            : ((_e = (_d = pickleStep.argument) === null || _d === void 0 ? void 0 : _d.docString) === null || _e === void 0 ? void 0 : _e.content)\n                ? pickleStep.argument.docString.content\n                : undefined;\n        cy.then(() => {\n            window.testState.pickleStep = step.pickleStep;\n            const start = (0, messages_1.createTimestamp)();\n            internalProperties.currentStep = { pickleStep };\n            internalProperties.currentStepStartedAt = start;\n            taskTestStepStarted(context, {\n                testStepId,\n                testCaseStartedId,\n                timestamp: start,\n            });\n            return cy.wrap(start, { log: false });\n        })\n            .then((start) => {\n            const beforeStepHooks = registry.resolveBeforeStepHooks(tags);\n            const afterStepHooks = registry.resolveAfterStepHooks(tags);\n            const options = {\n                pickle,\n                pickleStep,\n                gherkinDocument,\n                testCaseStartedId,\n                testStepId,\n            };\n            const beforeHooksChain = beforeStepHooks.reduce((chain, beforeStepHook) => {\n                return chain.then(() => (0, cypress_1.runStepWithLogGroup)({\n                    keyword: \"BeforeStep\",\n                    text: createStepDescription(beforeStepHook),\n                    fn: () => registry.runStepHook(this, beforeStepHook, options),\n                }));\n            }, cy.wrap({}, { log: false }));\n            return beforeHooksChain.then(() => {\n                try {\n                    return (0, cypress_1.runStepWithLogGroup)({\n                        keyword: (0, assertions_1.assertAndReturn)(\"keyword\" in scenarioStep && scenarioStep.keyword, \"Expected to find a keyword in the scenario step\"),\n                        argument,\n                        text,\n                        fn: () => registry.runStepDefininition(this, text, argument),\n                    }).then((result) => {\n                        return afterStepHooks\n                            .reduce((chain, afterStepHook) => {\n                            return chain.then(() => (0, cypress_1.runStepWithLogGroup)({\n                                keyword: \"AfterStep\",\n                                text: createStepDescription(afterStepHook),\n                                fn: () => registry.runStepHook(this, afterStepHook, options),\n                            }));\n                        }, cy.wrap({}, { log: false }))\n                            .then(() => {\n                            return { start, result };\n                        });\n                    });\n                }\n                catch (e) {\n                    if (e instanceof registry_1.MissingDefinitionError) {\n                        throw new Error(createMissingStepDefinitionMessage(context, pickleStep, context.registry.parameterTypeRegistry));\n                    }\n                    else {\n                        throw e;\n                    }\n                }\n            });\n        })\n            .then(({ start, result }) => onAfterStep({ start, result, testStepId }));\n    }\n}",
+              "err": {
+                "message": "Error: \nStep implementation missing for \"I open Ecommerce Page\".\n\nWe tried searching for files containing step definitions using the following search pattern templates:\n\n  - cypress\\integration\\examples\\bdd/[filepath]/**/*.{js,mjs,ts,tsx}\n  - cypress\\integration\\examples\\bdd/[filepath].{js,mjs,ts,tsx}\n  - cypress/support/step_definitions/**/*.{js,mjs,ts,tsx}\n\nThese templates resolved to the following search patterns:\n\n  - cypress\\integration\\examples\\bdd\\ecommerce\\**\\*.{js,mjs,ts,tsx}\n  - cypress\\integration\\examples\\bdd\\ecommerce.{js,mjs,ts,tsx}\n  - cypress\\support\\step_definitions\\**\\*.{js,mjs,ts,tsx}\n\nThese patterns matched **no files** containing step definitions. This almost certainly means that you have misconfigured `stepDefinitions`.\n\nYou can implement it using the suggestion(s) below.\n\n  Given(\"I open Ecommerce Page\", function () {\n    return \"pending\";\n  });\n  ",
+                "estack": "Error: \nStep implementation missing for \"I open Ecommerce Page\".\n\nWe tried searching for files containing step definitions using the following search pattern templates:\n\n  - cypress\\integration\\examples\\bdd/[filepath]/**/*.{js,mjs,ts,tsx}\n  - cypress\\integration\\examples\\bdd/[filepath].{js,mjs,ts,tsx}\n  - cypress/support/step_definitions/**/*.{js,mjs,ts,tsx}\n\nThese templates resolved to the following search patterns:\n\n  - cypress\\integration\\examples\\bdd\\ecommerce\\**\\*.{js,mjs,ts,tsx}\n  - cypress\\integration\\examples\\bdd\\ecommerce.{js,mjs,ts,tsx}\n  - cypress\\support\\step_definitions\\**\\*.{js,mjs,ts,tsx}\n\nThese patterns matched **no files** containing step definitions. This almost certainly means that you have misconfigured `stepDefinitions`.\n\nYou can implement it using the suggestion(s) below.\n\n  Given(\"I open Ecommerce Page\", function () {\n    return \"pending\";\n  });\n  \n    at Context.eval (node_modules/@badeball/cypress-cucumber-preprocessor/dist/browser-runtime.js:513:0)",
+                "diff": null
+              },
+              "uuid": "e8845826-cadc-4558-85fc-204532c75385",
+              "parentUUID": "0b0299d6-6504-4887-9dce-c7328d36b031",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Filling the form to shop",
+              "fullTitle": "End to end Ecommerce validation Filling the form to shop",
+              "timedOut": null,
+              "duration": 235,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      \"\\\\ecommerce.feature\\\\End to end Ecommerce validation -- Filling the form to shop (failed).png\"\n    ],\n    [\n      \"\\\\ecommerce.feature\\\\End to end Ecommerce validation -- Filling the form to shop (failed) (attempt 2).png\"\n    ]\n  ]\n}",
+              "code": "var _a, _b, _c, _d, _e;\n/**\n * This must always be true, otherwise something is off.\n */\n(0, assertions_1.assert)(context.includedPickles[0].id === pickle.id, \"Included pickle stack is unsynchronized\");\nconst { remainingSteps, testCaseStartedId } = retrieveInternalSpecProperties();\ntaskTestCaseStarted(context, {\n    id: testCaseStartedId,\n    testCaseId,\n    attempt: attempt++,\n    timestamp: (0, messages_1.createTimestamp)(),\n});\nwindow.testState = {\n    gherkinDocument,\n    pickles,\n    pickle,\n};\nconst onAfterStep = (options) => {\n    var _a, _b, _c;\n    const { testStepId, start, result } = options;\n    const end = (0, messages_1.createTimestamp)();\n    if (result === \"pending\" || result === \"skipped\") {\n        if (result === \"pending\") {\n            taskTestStepFinished(context, {\n                testStepId,\n                testCaseStartedId,\n                testStepResult: {\n                    status: messages.TestStepResultStatus.PENDING,\n                    duration: (0, messages_1.duration)(start, end),\n                },\n                timestamp: end,\n            });\n        }\n        else {\n            taskTestStepFinished(context, {\n                testStepId,\n                testCaseStartedId,\n                testStepResult: {\n                    status: messages.TestStepResultStatus.SKIPPED,\n                    duration: (0, messages_1.duration)(start, end),\n                },\n                timestamp: end,\n            });\n        }\n        remainingSteps.shift();\n        for (const skippedStep of remainingSteps) {\n            const hookIdOrPickleStepId = (0, assertions_1.assertAndReturn)((_b = (_a = skippedStep.hook) === null || _a === void 0 ? void 0 : _a.id) !== null && _b !== void 0 ? _b : (_c = skippedStep.pickleStep) === null || _c === void 0 ? void 0 : _c.id, \"Expected a step to either be a hook or a pickleStep\");\n            const testStepId = getTestStepId({\n                context,\n                pickleId: pickle.id,\n                hookIdOrPickleStepId,\n            });\n            taskTestStepStarted(context, {\n                testStepId,\n                testCaseStartedId,\n                timestamp: (0, messages_1.createTimestamp)(),\n            });\n            taskTestStepFinished(context, {\n                testStepId,\n                testCaseStartedId,\n                testStepResult: {\n                    status: messages.TestStepResultStatus.SKIPPED,\n                    duration: {\n                        seconds: 0,\n                        nanos: 0,\n                    },\n                },\n                timestamp: (0, messages_1.createTimestamp)(),\n            });\n        }\n        for (let i = 0, count = remainingSteps.length; i < count; i++) {\n            remainingSteps.pop();\n        }\n        cy.then(() => this.skip());\n    }\n    else {\n        taskTestStepFinished(context, {\n            testStepId,\n            testCaseStartedId,\n            testStepResult: {\n                status: messages.TestStepResultStatus.PASSED,\n                duration: (0, messages_1.duration)(start, end),\n            },\n            timestamp: end,\n        });\n        remainingSteps.shift();\n    }\n};\nfor (const step of steps) {\n    if (step.hook) {\n        const hook = step.hook;\n        const testStepId = getTestStepId({\n            context,\n            pickleId: pickle.id,\n            hookIdOrPickleStepId: hook.id,\n        });\n        cy.then(() => {\n            delete window.testState.pickleStep;\n            const start = (0, messages_1.createTimestamp)();\n            internalProperties.currentStepStartedAt = start;\n            taskTestStepStarted(context, {\n                testStepId,\n                testCaseStartedId,\n                timestamp: start,\n            });\n            return cy.wrap(start, { log: false });\n        })\n            .then((start) => {\n            const options = {\n                pickle,\n                gherkinDocument,\n                testCaseStartedId,\n            };\n            return (0, cypress_1.runStepWithLogGroup)({\n                fn: () => registry.runCaseHook(this, hook, options),\n                keyword: hook.keyword,\n                text: createStepDescription(hook),\n            }).then((result) => {\n                return { start, result };\n            });\n        })\n            .then(({ start, result }) => onAfterStep({ start, result, testStepId }));\n    }\n    else if (step.pickleStep) {\n        const pickleStep = step.pickleStep;\n        const testStepId = getTestStepId({\n            context,\n            pickleId: pickle.id,\n            hookIdOrPickleStepId: pickleStep.id,\n        });\n        const text = (0, assertions_1.assertAndReturn)(pickleStep.text, \"Expected pickle step to have a text\");\n        const scenarioStep = (0, assertions_1.assertAndReturn)(context.astIdsMap.get((0, assertions_1.assertAndReturn)((_a = pickleStep.astNodeIds) === null || _a === void 0 ? void 0 : _a[0], \"Expected to find at least one astNodeId\")), `Expected to find scenario step associated with id = ${(_b = pickleStep.astNodeIds) === null || _b === void 0 ? void 0 : _b[0]}`);\n        const argument = ((_c = pickleStep.argument) === null || _c === void 0 ? void 0 : _c.dataTable)\n            ? new data_table_1.default(pickleStep.argument.dataTable)\n            : ((_e = (_d = pickleStep.argument) === null || _d === void 0 ? void 0 : _d.docString) === null || _e === void 0 ? void 0 : _e.content)\n                ? pickleStep.argument.docString.content\n                : undefined;\n        cy.then(() => {\n            window.testState.pickleStep = step.pickleStep;\n            const start = (0, messages_1.createTimestamp)();\n            internalProperties.currentStep = { pickleStep };\n            internalProperties.currentStepStartedAt = start;\n            taskTestStepStarted(context, {\n                testStepId,\n                testCaseStartedId,\n                timestamp: start,\n            });\n            return cy.wrap(start, { log: false });\n        })\n            .then((start) => {\n            const beforeStepHooks = registry.resolveBeforeStepHooks(tags);\n            const afterStepHooks = registry.resolveAfterStepHooks(tags);\n            const options = {\n                pickle,\n                pickleStep,\n                gherkinDocument,\n                testCaseStartedId,\n                testStepId,\n            };\n            const beforeHooksChain = beforeStepHooks.reduce((chain, beforeStepHook) => {\n                return chain.then(() => (0, cypress_1.runStepWithLogGroup)({\n                    keyword: \"BeforeStep\",\n                    text: createStepDescription(beforeStepHook),\n                    fn: () => registry.runStepHook(this, beforeStepHook, options),\n                }));\n            }, cy.wrap({}, { log: false }));\n            return beforeHooksChain.then(() => {\n                try {\n                    return (0, cypress_1.runStepWithLogGroup)({\n                        keyword: (0, assertions_1.assertAndReturn)(\"keyword\" in scenarioStep && scenarioStep.keyword, \"Expected to find a keyword in the scenario step\"),\n                        argument,\n                        text,\n                        fn: () => registry.runStepDefininition(this, text, argument),\n                    }).then((result) => {\n                        return afterStepHooks\n                            .reduce((chain, afterStepHook) => {\n                            return chain.then(() => (0, cypress_1.runStepWithLogGroup)({\n                                keyword: \"AfterStep\",\n                                text: createStepDescription(afterStepHook),\n                                fn: () => registry.runStepHook(this, afterStepHook, options),\n                            }));\n                        }, cy.wrap({}, { log: false }))\n                            .then(() => {\n                            return { start, result };\n                        });\n                    });\n                }\n                catch (e) {\n                    if (e instanceof registry_1.MissingDefinitionError) {\n                        throw new Error(createMissingStepDefinitionMessage(context, pickleStep, context.registry.parameterTypeRegistry));\n                    }\n                    else {\n                        throw e;\n                    }\n                }\n            });\n        })\n            .then(({ start, result }) => onAfterStep({ start, result, testStepId }));\n    }\n}",
+              "err": {
+                "message": "Error: \nStep implementation missing for \"I open Ecommerce Page\".\n\nWe tried searching for files containing step definitions using the following search pattern templates:\n\n  - cypress\\integration\\examples\\bdd/[filepath]/**/*.{js,mjs,ts,tsx}\n  - cypress\\integration\\examples\\bdd/[filepath].{js,mjs,ts,tsx}\n  - cypress/support/step_definitions/**/*.{js,mjs,ts,tsx}\n\nThese templates resolved to the following search patterns:\n\n  - cypress\\integration\\examples\\bdd\\ecommerce\\**\\*.{js,mjs,ts,tsx}\n  - cypress\\integration\\examples\\bdd\\ecommerce.{js,mjs,ts,tsx}\n  - cypress\\support\\step_definitions\\**\\*.{js,mjs,ts,tsx}\n\nThese patterns matched **no files** containing step definitions. This almost certainly means that you have misconfigured `stepDefinitions`.\n\nYou can implement it using the suggestion(s) below.\n\n  Given(\"I open Ecommerce Page\", function () {\n    return \"pending\";\n  });\n  ",
+                "estack": "Error: \nStep implementation missing for \"I open Ecommerce Page\".\n\nWe tried searching for files containing step definitions using the following search pattern templates:\n\n  - cypress\\integration\\examples\\bdd/[filepath]/**/*.{js,mjs,ts,tsx}\n  - cypress\\integration\\examples\\bdd/[filepath].{js,mjs,ts,tsx}\n  - cypress/support/step_definitions/**/*.{js,mjs,ts,tsx}\n\nThese templates resolved to the following search patterns:\n\n  - cypress\\integration\\examples\\bdd\\ecommerce\\**\\*.{js,mjs,ts,tsx}\n  - cypress\\integration\\examples\\bdd\\ecommerce.{js,mjs,ts,tsx}\n  - cypress\\support\\step_definitions\\**\\*.{js,mjs,ts,tsx}\n\nThese patterns matched **no files** containing step definitions. This almost certainly means that you have misconfigured `stepDefinitions`.\n\nYou can implement it using the suggestion(s) below.\n\n  Given(\"I open Ecommerce Page\", function () {\n    return \"pending\";\n  });\n  \n    at Context.eval (node_modules/@badeball/cypress-cucumber-preprocessor/dist/browser-runtime.js:513:0)",
+                "diff": null
+              },
+              "uuid": "f5ec78e9-598c-492e-940c-bb2a5048bfda",
+              "parentUUID": "0b0299d6-6504-4887-9dce-c7328d36b031",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "e8845826-cadc-4558-85fc-204532c75385",
+            "f5ec78e9-598c-492e-940c-bb2a5048bfda"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 741,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "reportDir": "cypress\\reports\\html\\.jsons"
+      },
+      "version": "6.2.0"
+    }
+  }
+}
