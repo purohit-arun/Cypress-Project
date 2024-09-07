@@ -1,8 +1,9 @@
 /// <reference types="cypress" />
 import HomePage from "../pageObjects/HomePage";
 import ProductPage from "../pageObjects/ProductPage";
+let data
+
 describe('Framework Test 1', () => {
-    let data
     before(() => {
         cy.fixture('example').then((fdata) => {
             data = fdata

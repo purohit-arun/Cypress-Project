@@ -1,6 +1,16 @@
-import { Given, When, Then } from "cypress-cucumber-preprocessor/steps"
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor"
+import HomePage from "../../pageObjects/HomePage"
+import ProductPage from "../../pageObjects/ProductPage"
+
 const homePage = new HomePage()
 const productPage = new ProductPage()
+let data
+
+before(() => {
+    cy.fixture('example').then((fdata) => {
+        data = fdata
+    })
+})
 
 //Given I open Ecommerce Page
 Given('I open Ecommerce Page', () => {
@@ -8,17 +18,18 @@ Given('I open Ecommerce Page', () => {
 })
 
 //When I add items to cart
-When('When I add items to cart', () => {
+When('I add items to cart', () => {
     homePage.getShopTab().click()
-    data.productName.forEach(p => {
+   data.productName.forEach(p => {
         cy.selectProduct(p)
     })
     productPage.getCheckoutButton().click()
 })
 
 //validate the total prices
-And('Validate the total prices', () => {
+Then('Validate the total prices', () => {
     let priceArray = []
+    let totalSum
     cy.get('tr td:nth-child(4) strong').each(($price, index, $list) => {
         cy.log("Price is :: ", Number($price.text().split(' ', 2).at(1)))
         priceArray.push(Number($price.text().split(' ', 2).at(1)))
@@ -43,7 +54,7 @@ Then('Select the country submit and verify thankyou', () => {
 
 
 
-When('I fill the form details', () => {
+/* When('I fill the form details', () => {
     homePage.getNameEditBox().type(data.name)
     homePage.getGender().select(data.gender)
 })
@@ -55,4 +66,4 @@ Then('Validate the form behaviour', () => {
 })
 And('select the Shop Page', () => {
     homePage.getShopTab().click()
-})
+}) */

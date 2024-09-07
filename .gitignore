@@ -38,3 +38,4 @@ js/*.js
 .env
 .env.local
 package-lock.json
+cypress/reports

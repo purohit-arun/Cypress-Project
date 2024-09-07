@@ -4,7 +4,20 @@
   "description": "Cypress Practice Project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "open": "cypress open",
+    "scripts": "cypress run",
+    "headTest": "cypress run --headed ",
+    "chromeTest": "cypress run --browser chrome",
+    "firefoxTest": "cypress run --browser firefox",
+    "edgeTest": "cypress run --browser edge",
+    "testDashboard": "cypress run --record --key 1642c226-ca7f-49c3-b513-da4ee9222ca8 --parallel",
+    "clean:reports": "rm -R -f cypress/reports && mkdir cypress/reports && mkdir cypress/reports/mochareports",
+    "pretest": "npm run clean:reports",
+    "combine-reports": "mochawesome-merge ./cypress/reports/mocha/*.json > cypress/reports/mochareports/report.json",
+    "generate-report": "marge cypress/reports/mochareports/report.json -f report -o cypress/reports/mochareports",
+    "posttest": "npm run combine-reports && npm run generate-report",
+    "test": "npm run scripts || npm run posttest"
   },
   "author": "Arun Purohit",
   "license": "ISC",
@@ -14,5 +27,9 @@
     "cypress-iframe": "^1.0.1",
     "cypress-mochawesome-reporter": "^3.8.2",
     "@cypress/browserify-preprocessor": "latest"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": false,
+    "stepDefinitions": "cypress/integration/examples/bdd/*.js"
   }
 }
