@@ -39,3 +39,4 @@ js/*.js
 .env.local
 package-lock.json
 cypress/reports
+cypress/cucumberReports

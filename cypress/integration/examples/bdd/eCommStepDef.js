@@ -5,6 +5,7 @@ import ProductPage from "../../pageObjects/ProductPage"
 const homePage = new HomePage()
 const productPage = new ProductPage()
 let data
+let loginNames
 
 before(() => {
     cy.fixture('example').then((fdata) => {
@@ -20,7 +21,7 @@ Given('I open Ecommerce Page', () => {
 //When I add items to cart
 When('I add items to cart', () => {
     homePage.getShopTab().click()
-   data.productName.forEach(p => {
+    data.productName.forEach(p => {
         cy.selectProduct(p)
     })
     productPage.getCheckoutButton().click()
@@ -53,17 +54,19 @@ Then('Select the country submit and verify thankyou', () => {
 })
 
 
-
-/* When('I fill the form details', () => {
-    homePage.getNameEditBox().type(data.name)
-    homePage.getGender().select(data.gender)
+When('I fill the form details', (dataTable) => {
+    loginNames = dataTable
+    homePage.getNameEditBox().type(dataTable.rawTable[1][0])
+    homePage.getGender().select(dataTable.rawTable[1][1])
 })
+
 Then('Validate the form behaviour', () => {
-    homePage.getTwoWayDataBinding().should('have.value', data.name)
+    homePage.getTwoWayDataBinding().should('have.value', loginNames.rawTable[1][0])
     homePage.getNameEditBox().should('have.attr', 'minlength', '2')
 
     homePage.getEnterepruerButton().should('be.disabled')
 })
-And('select the Shop Page', () => {
+
+Then('select the Shop Page', () => {
     homePage.getShopTab().click()
-}) */
+}) 
