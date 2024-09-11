@@ -27,7 +27,8 @@ module.exports = defineConfig({
       require('cypress-mochawesome-reporter/plugin')(on);
     },
     setupNodeEvents,
-    specPattern: 'cypress/integration/examples/bdd/*.feature',
+    specPattern: 'cypress/integration/examples/*.js',
+    // specPattern: 'cypress/integration/examples/bdd/*.feature',
     projectId: "vg8qfi", //prh8fy,  
   },
 
