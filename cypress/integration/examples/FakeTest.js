@@ -20,7 +20,9 @@ describe('Second Test', () => {
         }).as('bookretrievals')
 
         cy.get("button[data-target='#exampleModal']").click()
-        cy.wait('@bookretrievals')
+        cy.wait('@bookretrievals').then(({ request, response }) => {
+            cy.get('tr').should('have.length', response.body.length + 1)
+        })
         cy.get('p').should('have.text', 'Oops only 1 Book available')
     })
 
