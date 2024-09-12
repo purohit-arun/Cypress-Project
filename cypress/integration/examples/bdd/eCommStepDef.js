@@ -7,11 +7,11 @@ const productPage = new ProductPage()
 let data
 let loginNames
 
-before(() => {
+/* before(() => {
     cy.fixture('example').then((fdata) => {
         data = fdata
     })
-})
+}) */
 
 //Given I open Ecommerce Page
 Given('I open Ecommerce Page', () => {
@@ -19,16 +19,16 @@ Given('I open Ecommerce Page', () => {
 })
 
 //When I add items to cart
-When('I add items to cart', () => {
+When('I add items to cart', function () {
     homePage.getShopTab().click()
-    data.productName.forEach(p => {
+    this.data.productName.forEach(function (p) {
         cy.selectProduct(p)
     })
     productPage.getCheckoutButton().click()
 })
 
 //validate the total prices
-Then('Validate the total prices', () => {
+When('Validate the total prices', () => {
     let priceArray = []
     let totalSum
     cy.get('tr td:nth-child(4) strong').each(($price, index, $list) => {

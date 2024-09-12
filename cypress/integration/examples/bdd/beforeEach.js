@@ -1,6 +1,5 @@
-let data
-before(() => {
-    cy.fixture('example').then((fdata) => {
-        data = fdata
+beforeEach(() => {
+    cy.fixture('example').then(function (fdata) {
+        this.data = fdata
     })
 })
