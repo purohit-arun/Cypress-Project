@@ -10,6 +10,22 @@ describe('JWT Token', () => {
                 }
             })
         })
+        cy.get('.card-body button:last-of-type').eq(1).click()
+        cy.get('button[routerlink*="/dashboard/cart"]').click()
+        cy.contains("Checkout").click()
+        cy.get('[placeholder="Select Country"]').type("ind")
+        cy.get(".ta-results button").each(($ele, index, $list) => {
+            if ($ele.text() === " India") {
+                cy.wrap($ele).click()
+            }
+        })
+        cy.wait(2000)
+        cy.get('.action__submit').click()
+        cy.wait(2000)
+        cy.get('tr:nth-child(4) button:nth-child(1)').click()
+
     })
+
+
 
 }) 

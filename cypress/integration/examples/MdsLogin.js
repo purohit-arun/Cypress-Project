@@ -17,9 +17,10 @@ describe('Paid Ticket Test Suite', () => {
 
         cy.origin("https://appleid.apple.com/auth/", () => {
 
-            cy.get('#account_name_text_field').type("ap@decodeup.email").debug()
-           // cy.get('#sign-in .shared-icon.icon_sign_in').click()
-           cy.pause()
+            cy.get('#account_name_text_field').type("ap@decodeup.email")
+            cy.wait(10000)
+            cy.get('#sign-in .shared-icon.icon_sign_in').click()
+            cy.wait(10000)
 
             cy.get('input#password_text_field').should('be.visible').type('User@123')
 
