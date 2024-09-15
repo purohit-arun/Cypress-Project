@@ -1,8 +1,10 @@
 /// <reference types="cypress" />
 //cypress - spec
+const neatCSV = require('neat-csv')
+
 describe('JWT Token', () => {
 
-    it('login using token inject', function () {
+    it('login using token inject', async function () {
         cy.LoginAPI().then(function () {
             cy.visit("https://rahulshettyacademy.com/client", {
                 onBeforeLoad: function (window) {
@@ -11,6 +13,7 @@ describe('JWT Token', () => {
             })
         })
         cy.get('.card-body button:last-of-type').eq(1).click()
+        cy.wait(6000)
         cy.get('button[routerlink*="/dashboard/cart"]').click()
         cy.contains("Checkout").click()
         cy.get('[placeholder="Select Country"]').type("ind")
@@ -24,6 +27,11 @@ describe('JWT Token', () => {
         cy.wait(2000)
         cy.get('tr:nth-child(4) button:nth-child(1)').click()
 
+        cy.readFile(Cypress.config("fileServerFolder") + "/cypress/downloads/order-invoice_rajpurohitarun98.csv")
+            .then(async (text) => {
+                const csv = await neatCSV(text)
+                console.log(csv)
+            })
     })
 
 
