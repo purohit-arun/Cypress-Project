@@ -24,6 +24,7 @@ describe('Second Test', () => {
             cy.get('tr').should('have.length', response.body.length + 1)
         })
         cy.get('p').should('have.text', 'Oops only 1 Book available')
+        
     })
 
 }) 
