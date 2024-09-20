@@ -3,7 +3,7 @@ const { addCucumberPreprocessorPlugin } = require("@badeball/cypress-cucumber-pr
 const { preprocessor } = require("@badeball/cypress-cucumber-preprocessor/browserify");
 const excelToJson = require("convert-excel-to-json");
 const fs = require('fs')
-let result 
+let result
 async function setupNodeEvents(on, config) {
   // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
   await addCucumberPreprocessorPlugin(on, config);
@@ -13,7 +13,7 @@ async function setupNodeEvents(on, config) {
   on('task', {
     excelToJsonConvertor(filePath) {
       result = excelToJson({
-        sourceFile: fs.readFileSync(filePath)
+        sourceFile: fs.statSync(filePath)
       })
       return result
     }

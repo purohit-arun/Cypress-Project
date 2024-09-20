@@ -33,10 +33,12 @@ describe('JWT Token', () => {
         cy.get('.action__submit').click()
         cy.wait(2000)
         cy.get(".order-summary button").contains("Excel").click()
-        const filePath = Cypress.config('fileServerFolder') + "/cypress/downloads/order-invoice_rajpurohitarun98.xlsx"
-        console.log("File path :::::::", filePath)
-        console.log("type of file path ::: ", typeof (filePath))
-        result = cy.task('excelToJsonConvertor', "D:/Cypress-Project/cypress/downloads/order-invoice_rajpurohitarun98.xlsx").then(function (resultJSON) {
+        const filePath =  Cypress.config('fileServerFolder') + '/cypress/downloads/order-invoice_rajpurohitarun98.xlsx';
+
+        console.log("File path ::", filePath)
+        console.log("type of file path :: ", typeof (filePath))
+
+        result = cy.task('excelToJsonConvertor', filePath).then(function (resultJSON) {
             console.log(resultJSON)
             cy.log(resultJSON)
 
