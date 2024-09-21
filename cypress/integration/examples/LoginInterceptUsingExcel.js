@@ -2,6 +2,9 @@
 //cypress - spec
 const neatCSV = require('neat-csv')
 const excelToJson = require('convert-excel-to-json')
+function replaceBackslashes(str) {
+    return str.replace(/\\/g, '/');
+}
 
 let productName
 let result
@@ -33,16 +36,18 @@ describe('JWT Token', () => {
         cy.get('.action__submit').click()
         cy.wait(2000)
         cy.get(".order-summary button").contains("Excel").click()
-        const filePath =  Cypress.config('fileServerFolder') + '/cypress/downloads/order-invoice_rajpurohitarun98.xlsx';
+        const filePath = replaceBackslashes(Cypress.config('fileServerFolder') + '/cypress/downloads/order-invoice_rajpurohitarun98.xlsx')
+
 
         console.log("File path ::", filePath)
         console.log("type of file path :: ", typeof (filePath))
 
-        result = cy.task('excelToJsonConvertor', filePath).then(function (resultJSON) {
+        result = cy.task('excelToJsonConvertor', filePath.toString()).then(function (resultJSON) {
             console.log(resultJSON)
             cy.log(resultJSON)
 
         })
+
 
     })
 }) 

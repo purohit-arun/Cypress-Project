@@ -3,6 +3,8 @@ const { addCucumberPreprocessorPlugin } = require("@badeball/cypress-cucumber-pr
 const { preprocessor } = require("@badeball/cypress-cucumber-preprocessor/browserify");
 const excelToJson = require("convert-excel-to-json");
 const fs = require('fs')
+const path = require('path');
+
 let result
 async function setupNodeEvents(on, config) {
   // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
@@ -12,8 +14,19 @@ async function setupNodeEvents(on, config) {
 
   on('task', {
     excelToJsonConvertor(filePath) {
+
+      if (typeof filePath !== 'string') {
+        throw new Error('The "path" argument must be of type string')
+      }
+
+      const absolutePath = path.resolve(filePath)
+
+      if (!fs.existsSync(absolutePath)) {
+        throw new Error(`File not found at path: ${absolutePath}`);
+      }
+
       result = excelToJson({
-        sourceFile: fs.statSync(filePath)
+        sourceFile: fs.readFileSync(absolutePath, 'utf-8')
       })
       return result
     }
@@ -39,7 +52,7 @@ module.exports = defineConfig({
     },
     setupNodeEvents,
     specPattern: 'cypress/integration/examples/*.js',
-    // specPattern: 'cypress/integration/examples/bdd/*.feature',
+    //specPattern: 'cypress/integration/examples/bdd/*.feature',
     projectId: "vg8qfi", //prh8fy,  
   },
 
