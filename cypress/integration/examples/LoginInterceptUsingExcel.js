@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 //cypress - spec
-const neatCSV = require('neat-csv')
-const excelToJson = require('convert-excel-to-json')
+const path = require('path')
+
 function replaceBackslashes(str) {
     return str.replace(/\\/g, '/');
 }
@@ -21,33 +21,45 @@ describe('JWT Token', () => {
         cy.get('.card-body b').eq(1).then(function (ele) {
             productName = ele.text()
         })
-        cy.get('.card-body button:last-of-type').eq(1).click()
-        cy.wait(6000)
-        cy.get('button[routerlink*="/dashboard/cart"]').click()
-        cy.wait(2000)
-        cy.contains("Checkout").click()
+        cy.get('.card-body button:last-of-type').should('be.visible').eq(1).click()
+        
+        cy.get('button[routerlink*="/dashboard/cart"]').should('be.visible').click()
+        
+        cy.contains("Checkout").should('be.visible').click()
         cy.get('[placeholder="Select Country"]').type("ind")
         cy.get(".ta-results button").each(($ele, index, $list) => {
             if ($ele.text() === " India") {
-                cy.wrap($ele).click()
+                cy.wrap($ele).should('be.visible').click()
             }
         })
-        cy.wait(2000)
-        cy.get('.action__submit').click()
-        cy.wait(2000)
-        cy.get(".order-summary button").contains("Excel").click()
-        const filePath = replaceBackslashes(Cypress.config('fileServerFolder') + '/cypress/downloads/order-invoice_rajpurohitarun98.xlsx')
+        
+        cy.get('.action__submit').should('be.visible').click()
+        
+        cy.get(".order-summary button").should('be.visible').contains("Excel").click()
+        //const filePath = replaceBackslashes(Cypress.config('fileServerFolder') + '/cypress/downloads/order-invoice_rajpurohitarun98.xlsx')
+        const filePath = path.join(Cypress.config('fileServerFolder'), 'cypress/downloads/order-invoice_rajpurohitarun98.xlsx')
+        /* const filePath = 'D:/Cypress_Integration/cypress/downloads/order-invoice_rajpurohitarun98.xlsx';
 
 
         console.log("File path ::", filePath)
-        console.log("type of file path :: ", typeof (filePath))
+        console.log("Type of file path ::", typeof (filePath))
 
-        result = cy.task('excelToJsonConvertor', filePath.toString()).then(function (resultJSON) {
+        result = cy.task('excelToJsonConvertor', filePath).then(function (resultJSON) {
             console.log(resultJSON)
             cy.log(resultJSON)
+        }) */
 
+
+        cy.task('excelToJsonConvertor', filePath).then(function (result) {
+            cy.log(result)
         })
 
+        /* cy.readFile('D:/Cypress_Integration/cypress/downloads/order-invoice_rajpurohitarun98.xlsx', null).then((fileBuffer) => {
+            cy.task('excelToJsonConvertor', { fileBuffer }).then((jsonData) => {
+                // Handle the JSON data
+                cy.log(JSON.stringify(jsonData));
+            });
+        }); */
 
     })
 }) 
