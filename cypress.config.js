@@ -3,9 +3,6 @@ const { addCucumberPreprocessorPlugin } = require("@badeball/cypress-cucumber-pr
 const { preprocessor } = require("@badeball/cypress-cucumber-preprocessor/browserify");
 const excelToJson = require('convert-excel-to-json');
 const fs = require('fs')
-const path = require('path')
-
-const path = require('path');
 const xlsx = require('xlsx');
 
 async function setupNodeEvents(on, config) {
@@ -94,8 +91,10 @@ module.exports = defineConfig({
       require('cypress-mochawesome-reporter/plugin')(on);
     },
     setupNodeEvents,
-    specPattern: 'cypress/integration/examples/*.js',
-    //specPattern: 'cypress/integration/examples/bdd/*.feature',
+    //specPattern: 'cypress/e2e/examples/*.js',
+    //specPattern: 'cypress/e2e/examples/**/*.{cy.ts,cy.js,cy.jsx,js,ts,spec.js,spec.ts}',
+    specPattern: 'cypress/e2e/examples/*.{cy.ts,cy.js,cy.jsx,js,ts,spec.js,spec.ts}',
+    //specPattern: 'cypress/e2e/examples/bdd/*.feature',
     projectId: "vg8qfi", //prh8fy,  
   },
 
