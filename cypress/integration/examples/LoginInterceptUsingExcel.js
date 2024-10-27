@@ -2,6 +2,10 @@
 //cypress - spec
 const path = require('path')
 
+const neatCSV = require('neat-csv')
+const excelToJson = require('convert-excel-to-json')
+const path = require('path')
+
 function replaceBackslashes(str) {
     return str.replace(/\\/g, '/');
 }
@@ -22,9 +26,9 @@ describe('JWT Token', () => {
             productName = ele.text()
         })
         cy.get('.card-body button:last-of-type').should('be.visible').eq(1).click()
-        
+
         cy.get('button[routerlink*="/dashboard/cart"]').should('be.visible').click()
-        
+
         cy.contains("Checkout").should('be.visible').click()
         cy.get('[placeholder="Select Country"]').type("ind")
         cy.get(".ta-results button").each(($ele, index, $list) => {
@@ -44,22 +48,18 @@ describe('JWT Token', () => {
         console.log("File path ::", filePath)
         console.log("Type of file path ::", typeof (filePath))
 
-        result = cy.task('excelToJsonConvertor', filePath).then(function (resultJSON) {
+        cy.task('excelToJsonConvertor', filePath).then(function (resultJSON) {
+
+            console("::::::Inside task::::::")
             console.log(resultJSON)
             cy.log(resultJSON)
-        }) */
+            cy.log("Data in excel is ::::", resultJSON.data[1].A);
 
 
-        cy.task('excelToJsonConvertor', filePath).then(function (result) {
-            cy.log(result)
+            cy.task('excelToJsonConvertor', filePath).then(function (result) {
+                cy.log(result)
+            })
         })
-
-        /* cy.readFile('D:/Cypress_Integration/cypress/downloads/order-invoice_rajpurohitarun98.xlsx', null).then((fileBuffer) => {
-            cy.task('excelToJsonConvertor', { fileBuffer }).then((jsonData) => {
-                // Handle the JSON data
-                cy.log(JSON.stringify(jsonData));
-            });
-        }); */
 
     })
 }) 
