@@ -36,9 +36,9 @@ describe('JWT Token', () => {
                 cy.wrap($ele).should('be.visible').click()
             }
         })
-        
+
         cy.get('.action__submit').should('be.visible').click()
-        
+
         cy.get(".order-summary button").should('be.visible').contains("Excel").click()
         //const filePath = replaceBackslashes(Cypress.config('fileServerFolder') + '/cypress/downloads/order-invoice_rajpurohitarun98.xlsx')
         const filePath = path.join(Cypress.config('fileServerFolder'), 'cypress/downloads/order-invoice_rajpurohitarun98.xlsx')
@@ -60,6 +60,7 @@ describe('JWT Token', () => {
                 cy.log(result)
             })
         })
+            */
 
     })
-}) 
+})
